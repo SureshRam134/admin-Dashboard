@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+
+
+@theme {
+  --color-primary-light: #ffffff;
+  --color-secondary-light: #F4F5F9;
+  --color-primary-dark: #000000;
+  --color-primary-light-gray: #89868D;
+  --color-  : #3A3541;
+  --color-primary-violet: #6E39CB;
+  --color-secondary-gray: #DBDCDE;
+
+
+}
+
+@theme {
+  --font-lato: "Lato", sans-serif;
+ 
+}
+
+.root{
+  padding: 40px;
+}
