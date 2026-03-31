@@ -7,7 +7,7 @@
 .log-phara-hr-line::after {
     content: " ";
     position: absolute;
-    border-left: 2px solid gray;
+    border-left: 1px solid var(--color-secondary-light);
     padding: 70px 0px;
     left: 9%;
     top: 41%;
@@ -16,7 +16,7 @@
 .log-phara-vr-line::after {
     content: " ";
     position: absolute;
-    border-bottom: 2px solid gray;
+    border-bottom: 1px solid var(--color-secondary-light);
     padding: 0px 35px;
     left: 9%;
     bottom: 7%;

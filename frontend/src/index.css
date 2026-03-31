@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 
+:root{
+  
+  --color-secondary-light: #F4F5F9;
+}
 
 @theme {
   --color-primary-light: #ffffff;
@@ -10,6 +14,7 @@
   --color-  : #3A3541;
   --color-primary-violet: #6E39CB;
   --color-secondary-gray: #DBDCDE;
+  --color-primary-Err: #ff0000;
 
 
 }
