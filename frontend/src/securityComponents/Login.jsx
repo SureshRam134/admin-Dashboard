@@ -128,7 +128,7 @@ function Login() {
 
                         <NavLink
                             className="relative mb-14"
-                            to="/"><span className='text:xs md:text-[14.22px] md:px-[17px] py-[6px] md:absolute  md:right-0  text-primary-violet font-lato font-semibold'>Forgot password</span>
+                            to="/forgot"><span className='text:xs md:text-[14.22px] md:px-[17px] py-[6px] md:absolute  md:right-0  text-primary-violet font-lato font-semibold'>Forgot password</span>
                         </NavLink>
                         <button
                             type="submit"
@@ -179,7 +179,7 @@ function Login() {
                     <p
                         className='text-[14.22px] text-primary-light-gray font-lato flex items-center justify-center'
                     >Dont’t have an account.
-                        <NavLink to="/"
+                        <NavLink to="/signup"
                             className="text-[14.22px] text-primary-violet font-lato px-2">
                             Sign up</NavLink></p>
 

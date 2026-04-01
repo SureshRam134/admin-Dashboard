@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import axiosURL from "../api/AxiosURL"
 
 
 const ForgetPassword = () => {
+    const navigate = useNavigate()
 
     const initial = {
         email: "",
@@ -17,7 +18,7 @@ const ForgetPassword = () => {
         setForgetErr({ ...setForgetErr, [name]: "" })
     }
 
-    const handleSubmitFun =async e => {
+    const handleSubmitFun = async e => {
         e.preventDefault();
         const { email } = forget;
         const newErrObj = {}
@@ -29,17 +30,20 @@ const ForgetPassword = () => {
         }
         try {
             const data = {
-                email : forget.email.trim().toLowerCase()
+                email: forget.email.trim().toLowerCase()
             }
-            const Forget_res = await axiosURL.post('/user/forget', data)
-            
+            const Forgot_mail_res = await axiosURL.post('/user/forgot', data)
+            alert(Forgot_mail_res.data.message)
+            navigate('/otp', { state: email })
         } catch (error) {
-            
+            if (error.response.status === 400) alert(error.response.data.message)
+            else if (error.response.status === 404) alert(error.response.data.message)
+            else console.log("server error: ", error);
         }
-
     }
-    return (
 
+
+    return (
         <div className='px-[20px] py-[95px] md:px-[30px] md:py-[50px] lg:px-[80px] lg:py-[124px] bg-secondary-light ' >
             <div className=' bg-primary-light md:w-[500px] md:h-[400px] lg:w-[600px] lg:h-[400px] xl:w-[730px] xl:h-[515px] rounded-[30px] mx-auto flex items-center shadow-md shadow-gray-500/20 '>
                 <div className='px-[20px] py-[50px] md:px-0 md:py-0 rounded-[30px] w-full md:w-[270px] lg:w-[330px] mx-auto items-center bg-primary-light'>
@@ -73,7 +77,6 @@ const ForgetPassword = () => {
                     <NavLink to="/"
                         className="text-[14.22px] text-primary-violet font-lato px-2 flex items-center justify-center">
                         Back to login</NavLink>
-
                 </div>
             </div>
         </div>

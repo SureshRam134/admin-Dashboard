@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import '../style/Signup.css'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import axiosURL from '../api/AxiosURL'
 
 function Signup() {
-
+    const navigate = useNavigate()
     const initial = {
         name: "",
         email: "",
@@ -43,6 +43,7 @@ function Signup() {
             alert(res.data.message)
             setSignUser(initial)
             setSignUserErr(initial)
+            navigate('/')
 
         } catch (error) {
             if (error.response.status === 400) alert(error.response.data.message)
