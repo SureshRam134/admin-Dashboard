@@ -6,4 +6,10 @@ const registerTable = (callback) => {
     db.query(sql, callback)
 }
 
-module.exports= {registerTable}
+
+const verifyUserOTP = (callback) => {
+    // otp_verification
+    const sql = "CREATE TABLE IF NOT EXISTS verify_userOTP (id INT AUTO_INCREMENT PRIMARY KEY, email VARCHAR(150) ,otp VARCHAR(15))"
+    db.query(sql, callback)
+}
+module.exports= {registerTable, verifyUserOTP}
