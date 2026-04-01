@@ -65,7 +65,7 @@ const ResetPassword = () => {
                         <input
                             className='w-full text-[14.22px] px-[15px] py-[13px] mb-[20px] md:mb-[20px] rounded-lg border-[1px] border-secondary-gray bg-secondary-light text-secondary-light-gray font-lato outline-none focus:ring-1 focus:ring-blue-500'
                             id='newpassword'
-                            type="text"
+                            type="password"
                             placeholder='New Password'
                             name='newpassword'
                             value={resetPassword.newpassword}
@@ -77,7 +77,7 @@ const ResetPassword = () => {
                             <input
                                 className='w-full text-[14.22px] px-[15px] py-[13px] mb-[20px] md:mb-[20px] rounded-lg border-[1px] border-secondary-gray bg-secondary-light text-secondary-light-gray font-lato outline-none focus:ring-1 focus:ring-blue-500'
                                 id='confirmpassword'
-                                type="text"
+                                type="password"
                                 placeholder='Confirm Password'
                                 name='confirmPassword'
                                 value={resetPassword.confirmPassword}
