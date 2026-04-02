@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Login from './securityComponents/Login'
-import Signup from './securityComponents/Signup'
 import ForgetPassword from './securityComponents/ForgetPassword'
-import VerifyOTP from './securityComponents/VerifyOTP'
 import ResetPassword from './securityComponents/ResetPassword'
+// import SuperAdminSignup from './securityComponents/SuperAdminSignup'
+import Signup from './securityComponents/Signup'
 
 function App() {
 
@@ -14,8 +14,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        {/* <Route path='/superadmin' element={<SuperAdminSignup/>}/> */}
         <Route path='/forgot' element={<ForgetPassword />} />
-        <Route path='/otp' element={<VerifyOTP />} />
         <Route path='/resetpassword' element={<ResetPassword />} />
 
         

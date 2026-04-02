@@ -34,7 +34,7 @@ const ForgetPassword = () => {
             }
             const Forgot_mail_res = await axiosURL.post('/user/forgot', data)
             alert(Forgot_mail_res.data.message)
-            navigate('/otp', { state: email })
+            navigate('/resetpassword', { state: email })
         } catch (error) {
             if (error.response.status === 400) alert(error.response.data.message)
             else if (error.response.status === 404) alert(error.response.data.message)

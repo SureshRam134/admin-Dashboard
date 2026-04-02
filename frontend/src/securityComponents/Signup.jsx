@@ -3,7 +3,7 @@ import '../style/Signup.css'
 import { NavLink, useNavigate } from 'react-router-dom'
 import axiosURL from '../api/AxiosURL'
 
-function Signup() {
+function Signup({control = {}}) {
     const navigate = useNavigate()
     const initial = {
         name: "",
@@ -20,6 +20,7 @@ function Signup() {
         setSignUser({ ...signUser, [name]: value })
         setSignUserErr({ ...signUserErr, [name]: "" })
     }
+
     const handleSubmitFun = async e => {
         e.preventDefault();
         const { name, email, password } = signUser;
@@ -37,7 +38,8 @@ function Signup() {
                 name: signUser.name.trim(),
                 email: signUser.email.trim().toLowerCase(),
                 password: signUser.password.trim(),
-                roleId: 2,
+                roleId:2,
+                // roleId: control.role,
             }
             const res = await axiosURL.post("/user/register", data)
             alert(res.data.message)
@@ -163,7 +165,7 @@ function Signup() {
                     <p
                         className='text-[14.22px] text-primary-light-gray font-lato '
                     >Already a member?
-                        <NavLink to="/"
+                        <NavLink to='/'
                             className="text-[14.22px] text-primary-violet font-lato px-2">
                             Sign in</NavLink></p>
 
