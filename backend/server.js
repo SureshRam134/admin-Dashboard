@@ -3,11 +3,15 @@ require('dotenv').config()
 const cors = require('cors')
 require('./config/initDB')
 const authRoute = require('./routes/authRoute')
+// const { admin_AuthRoute, superAdmin_AuthRoute } = require('./routes/adminAuthRoute')
+
 
 const server = express();
 const PORT = process.env.PORT || 4000
 server.use(cors());
 server.use(express.json());
+// server.use('/api/super_admin', superAdmin_AuthRoute)
+// server.use('/api/admin', admin_AuthRoute)
 server.use('/api/user', authRoute)
 
 server.listen(PORT, () => {

@@ -14,11 +14,11 @@ const userForgotPassword = (data, callback) => {
     db.query(sql, data, callback)
 }
 const userOTP = (data, callback) => {
-    const sql = "INSERT INTO verify_userOTP (`email`, `otp`    ) VALUES (?,?)"
+    const sql = "UPDATE register SET otp = ?, expires_otp =?   WHERE email = ?"
     db.query(sql, data, callback)
 }
 const getUserOtp = (data, callback) => {
-    const sql ="SELECT * FROM verify_userOTP WHERE otp = ?"
+    const sql ="SELECT * FROM register WHERE otp = ?"
     db.query(sql, data, callback)
 }
 const resetPassword = (data, callback) => {
