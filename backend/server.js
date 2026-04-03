@@ -1,19 +1,16 @@
 const express = require('express')
 require('dotenv').config()
 const cors = require('cors')
-require('./config/initDB')
 const authRoute = require('./routes/authRoute')
-// const { admin_AuthRoute, superAdmin_AuthRoute } = require('./routes/adminAuthRoute')
-
+const { admin_AuthRoute } = require('./routes/adminAuthRoute')
 
 const server = express();
 const PORT = process.env.PORT || 4000
-server.use(cors());
+server.use(cors({origin:'http://localhost:5173', credentials:true}));
 server.use(express.json());
 // server.use('/api/super_admin', superAdmin_AuthRoute)
-// server.use('/api/admin', admin_AuthRoute)
+server.use('/api/admin', admin_AuthRoute)
 server.use('/api/user', authRoute)
-
 server.listen(PORT, () => {
     console.log(`Server running ${PORT}`);
 })
