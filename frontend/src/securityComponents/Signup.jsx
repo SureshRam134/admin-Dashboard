@@ -41,7 +41,7 @@ function Signup({control = {}}) {
                 roleId:2,
                 // roleId: control.role,
             }
-            const res = await axiosURL.post("/user/register", data)
+            const res = await axiosURL.post("/admin/register", data)
             alert(res.data.message)
             setSignUser(initial)
             setSignUserErr(initial)
@@ -50,6 +50,7 @@ function Signup({control = {}}) {
         } catch (error) {
             if (error.response.status === 400) alert(error.response.data.message)
             else if(error.response.status === 409){alert(error.response.data.message)}
+            else if(error.response.status === 403){alert(error.response.data.message)}
             else console.log("Server error:", error);
 
         }

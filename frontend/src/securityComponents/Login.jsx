@@ -40,7 +40,7 @@ function Login() {
             }
             const res = await axiosURL.post("/user/login", data)
             alert(res.data.message)
-            const token = res.data.token
+            const token = res.data.result
             localStorage.setItem("token", token )
             
             const auth_res = await axiosURL.post("/user/protect")
