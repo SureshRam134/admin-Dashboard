@@ -1,14 +1,7 @@
 
 
-const wrongResponse = (res,code,msg) => {
-    return res.status(code).json({message:msg} )
-}
-const SuccessResponse = (res,code,msg,result = null) => {
-    return res.status(code).json({message:msg ,result} )
-}
-const errorResponse = (res,code,msg, error = null) => {
-    return res.status(code).json(msg ,error )
+const response =(res, code, boolian = false ,msg, result = null) => {
+    return res.status(code).json({status:boolian ,message:msg , result} )
 }
 
-
-module.exports = {wrongResponse,SuccessResponse, errorResponse }
+module.exports = {response}

@@ -1,16 +1,17 @@
 const nodemailer = require("nodemailer");
+const { response } = require("../utils/response");
 
 
 const checkMail = (res) => {
-    if (!/^[a-zA-Z0-9.#+-]+@[a-zA-z.+-]+\.[a-zA-z]{2,}$/.test(sender_email)) return res.status(400).json("Sender email not vaild formot ")
-    // const email = sender_email.toLowerCase()
- 
+    const isEmail = process.env.SMTP_USER
+    const email = isEmail.trim().toLowerCase()
+    if (!/^[a-zA-Z0-9.#+-]+@[a-zA-z.+-]+\.[a-zA-z]{2,}$/.test(email)) return response(res, 400 ,false, "Sender email not vaild formot ")
     return nodemailer.createTransport({
-        host : "smtp.gmail.com",
-        port : 587,
+        host : process.env.SMTP_HOST,
+        port : process.env.SMTP_PORT,
         secure : false,
         auth: {
-            user: process.env.SMTP_USER,
+            user: email,
             pass: process.env.SMTP_PASS
         },
     });
