@@ -3,38 +3,39 @@ import { NavLink, useNavigate } from "react-router-dom"
 import axiosURL from "../api/AxiosURL"
 
 
-const ForgetPassword = () => {
+const forgotPassword = () => {
     const navigate = useNavigate()
 
     const initial = {
         email: "",
     }
-    const [forget, setForget] = useState(initial)
-    const [forgetErr, setForgetErr] = useState(initial)
+    const [forgot, setForgot] = useState(initial)
+    const [forgotErr, setForgotErr] = useState(initial)
 
     const inputHandleFun = e => {
         const { name, value } = e.target;
-        setForget({ ...forget, [name]: value })
-        setForgetErr({ ...setForgetErr, [name]: "" })
+        setForgot({ ...forgot, [name]: value })
+        setForgotErr({ ...setForgotErr, [name]: "" })
     }
 
     const handleSubmitFun = async e => {
         e.preventDefault();
-        const { email } = forget;
+        const { email } = forgot;
         const newErrObj = {}
         if (!email) newErrObj.email = "Please Enter Email"
 
         if (Object.keys(newErrObj).length > 0) {
-            setForgetErr(newErrObj)
+            setForgotErr(newErrObj)
             return;
         }
         try {
             const data = {
-                email: forget.email.trim().toLowerCase()
+                email: forgot.email.trim().toLowerCase()
             }
             const Forgot_mail_res = await axiosURL.post('/user/forgot', data)
-            alert(Forgot_mail_res.data.message)
-            navigate('/resetpassword', { state: email })
+            alert(Forgot_mail_res.data.message, )
+            const payload = Forgot_mail_res.data.result       
+            navigate(`/resetpassword/${payload?.email}/${payload?.otp}`)
         } catch (error) {
             if (error.response.status === 400) alert(error.response.data.message)
             else if (error.response.status === 404) alert(error.response.data.message)
@@ -63,9 +64,9 @@ const ForgetPassword = () => {
                                 type="text"
                                 placeholder='Enter your email'
                                 name='email'
-                                value={forget.email}
+                                value={forgot.email}
                                 onChange={inputHandleFun} />
-                            {forgetErr && <span className='absolute text-primary-Err text-xs top-[83px]'>{forgetErr.email}</span>}
+                            {forgotErr && <span className='absolute text-primary-Err text-xs top-[83px]'>{forgotErr.email}</span>}
                         </div>
 
                         <button
@@ -84,4 +85,4 @@ const ForgetPassword = () => {
 }
 
 
-export default ForgetPassword;
+export default forgotPassword;

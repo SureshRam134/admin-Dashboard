@@ -1,22 +1,28 @@
 import { useState } from "react"
-import { NavLink, useLocation, useNavigate } from "react-router-dom"
+import { NavLink, useNavigate, useParams } from "react-router-dom"
 import axiosURL from "../api/AxiosURL"
 
 const ResetPassword = () => {
     const navigate = useNavigate()
-    const location = useLocation()
-    const email = location?.state
+    const { email = " ", otp = " " } = useParams()
+    console.log(email, otp);
+
+
 
     const backToForgot = () => {
         window.location.href = "/forgot"
     }
 
     const initial = {
-        email: "" || email,
+        email: "",
         otp: "",
         newPassword: ""
     }
-    const [userReset, setUserReset] = useState(initial)
+    const [userReset, setUserReset] = useState({
+        email: email || "",
+        otp: otp || "",
+        newPassword: ""
+    })
     const [userResetErr, setUserResetErr] = useState(initial)
     const [hiddenPass, setHiddenPass] = useState(false)
 
@@ -31,8 +37,8 @@ const ResetPassword = () => {
         const { email, otp, newPassword } = userReset;
         const newErrObj = {}
         if (!otp) newErrObj.otp = "Please Enter OTP"
+        if (!email) newErrObj.email = "Please Enter Email"
         else if (otp.length < 6 || otp.length > 6) newErrObj.otp = "Otp length 6 number only"
-        if (email === null) newErrObj.email = "Please Enter Email"
         if (!newPassword) newErrObj.newPassword = "Plesae Enter Password"
         if (Object.keys(newErrObj).length > 0) {
             setUserResetErr(newErrObj)
@@ -92,18 +98,19 @@ const ResetPassword = () => {
                         onSubmit={handleSubmitFun}
                         className=' md:flex flex-col '
                     >
+                        <div className='relative flex flex-col'>
+                            <input
+                                className='w-full text-[14.22px] px-[15px] py-[13px] mb-[20px] md:mb-[20px] rounded-lg border-[1px] border-secondary-gray bg-secondary-light text-secondary-light-gray font-lato outline-none focus:ring-1 focus:ring-blue-500'
+                                id='email'
+                                type="text"
+                                placeholder='Enter your email'
+                                name='email'
+                                value={userReset?.email}
+                                onChange={inputHandleFun}
+                            />
+                            {userResetErr && <span className='absolute text-primary-Err text-xs top-[48px]'>{userResetErr.email}</span>}
 
-                        <input
-                            className='w-full text-[14.22px] px-[15px] py-[13px] mb-[20px] md:mb-[20px] rounded-lg border-[1px] border-secondary-gray bg-secondary-light text-secondary-light-gray font-lato outline-none focus:ring-1 focus:ring-blue-500'
-                            id='email'
-                            type="text"
-                            placeholder='Enter your email'
-                            name='email'
-                            value={userReset?.email}
-                            onChange={inputHandleFun}
-                        />
-
-
+                        </div>
                         <div className='relative flex flex-col'>
                             <input
                                 className='w-full text-[14.22px] px-[15px] py-[13px] mb-[20px] md:mb-[20px] rounded-lg border-[1px] border-secondary-gray bg-secondary-light text-secondary-light-gray font-lato outline-none focus:ring-1 focus:ring-blue-500'
@@ -111,7 +118,7 @@ const ResetPassword = () => {
                                 type="number"
                                 placeholder='Enter your Otp'
                                 name='otp'
-                                value={userReset.otp}
+                                value={userReset?.otp}
                                 onChange={inputHandleFun} />
                             {userResetErr && <span className='absolute text-primary-Err text-xs top-[48px]'>{userResetErr.otp}</span>}
                         </div>

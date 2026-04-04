@@ -43,8 +43,8 @@
 
 @media (width:1024px) {
     .log-background-img {
-        background-size: 111% 78%;
-        background-position: 94% 100% !important;
+            background-size: 105% 84% !important;
+    background-position: 94% 105% !important;
     }
 
     .log-phara-hr-line::after {

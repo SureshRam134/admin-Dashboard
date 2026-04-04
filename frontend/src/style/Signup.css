@@ -25,55 +25,57 @@
 
 @media (width:768px) {
     .sign-background-img {
-        background-size: 125% 82%;
+        background-size: 125% 76%;
         background-position: 94% 100% !important;
     }
 
     .sign-phara-hr-line::after {
-        padding: 70px 0px !important;
-        left: 11% !important; 
-        top: 35% !important;
+        padding: 55px 0px !important;
+        left: 11% !important;
+        top: 34% !important;
     }
 
     .sign-phara-vr-line::after {
-        padding: 0px 35px;
-        left: 11% ;
+        padding: 0px 25px;
+        left: 11%;
         bottom: 6%;
     }
 }
 
 @media (width:1024px) {
     .sign-background-img {
-        background-size: 105% 83% !important; 
+        background-size: 102% 83% !important;
         background-position: 94% 105% !important;
     }
 
     .sign-phara-hr-line::after {
-        padding: 70px 0px !important;
-        left: 11% !important;
-        top: 32% !important;
+        padding: 60px 0px !important;
+        left: 10.5% !important;
+        top: 36% !important;
     }
 
     .sign-phara-vr-line::after {
-        padding: 0px 35px;
-        left: 11% !important;
+        padding: 0px 30px;
+        left: 10.5% !important;
         bottom: 9%;
     }
 }
 
 @media (width:1440px) {
     .sign-background-img {
-        background-position: 100% 125% !important;
+        background-size: 94% 75%;
+        background-position: 97% 101% !important;
     }
 
     .sign-phara-hr-line::after {
-        left: 9%;
-        top: 41%;
+        padding: 70px 0px;
+        left: 10%;
+        top: 43%;
     }
 
     .sign-phara-vr-line::after {
         padding: 0px 35px;
-        left: 9%;
+        left: 10%;
         bottom: 7%;
     }
 }

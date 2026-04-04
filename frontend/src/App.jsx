@@ -5,9 +5,9 @@ import ForgetPassword from './securityComponents/ForgetPassword'
 import ResetPassword from './securityComponents/ResetPassword'
 // import SuperAdminSignup from './securityComponents/SuperAdminSignup'
 import Signup from './securityComponents/Signup'
+import AccessDenied from './securityComponents/AccessDenied'
 
 function App() {
-
 
   return (
     <>
@@ -16,9 +16,8 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         {/* <Route path='/superadmin' element={<SuperAdminSignup/>}/> */}
         <Route path='/forgot' element={<ForgetPassword />} />
-        <Route path='/resetpassword' element={<ResetPassword />} />
-
-        
+        <Route path='/resetpassword/:email/:otp' element={<ResetPassword />} />
+        <Route path='*' element={<AccessDenied/>} />
       </Routes>
     </>
   )
