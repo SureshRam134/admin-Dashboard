@@ -1,5 +1,4 @@
 import axios from "axios"
-import { Meta } from "react-router-dom"
 
 
 const axiosURL = axios.create({
@@ -7,9 +6,11 @@ const axiosURL = axios.create({
     headers: "content-type : application/json"
 })
 axiosURL.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token")
-    if(token) {
-        config.headers.authorization =`Bearer ${token}`
+    const getToken = localStorage.getItem("tokenProfile")
+    const userToken = getToken ? JSON.parse(getToken): ''
+    
+    if(userToken) {
+        config.headers.authorization =`Bearer ${userToken.token}`
     }
     return config;
 },

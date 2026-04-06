@@ -61,8 +61,8 @@ function Signup({ control = {} }) {
     }
 
     return (
-        <div className='px-[20px] py-[50px] md:px-[34px] md:py-[34px] lg:px-[50px] lg:py-[34px] xl:py-[138px] xl:px-[80px] bg-secondary-light shadow-lg' >
-            <div className='grid grid-cols-1 md:grid-cols-2 md:gap-3  lg:gap-4 l items-center bg-primary-light px-[15px] py-[60px] md:px-[20px] md:py-[20px] rounded-[30px] shadow-md shadow-gray-500/20 '>
+        <div className='px-[20px] py-[50px] md:px-[10px] md:py-[9px] lg:px-[10px] lg:py-[9px] xl:py-[9px] xl:px-[30px] bg-secondary-light shadow-lg' >
+            <div className='grid grid-cols-1 md:grid-cols-2 xl:flex md:gap-3 lg:gap-4 items-center bg-primary-light px-[15px] py-[60px] md:px-[15px] md:py-[20px] xl:px-[20px] xl:py-[20px] rounded-[30px] shadow-md shadow-gray-500/20 xl:h-[97vh]'>
                 <div className='lg:pe-2 w-full md:w-[250px] lg:w-[280px] xl:w-[330px] mx-auto items-center '>
                     <h1 className='text-2xl md:text-[22px] lg:text-[25px] xl:text-[28.83px] font-lato font-bold'>Sign up</h1>
                     <p className='text-xs md:text-[11px] lg:text-[12px] xl:text-[12.64px] font-normal font-lato text-primary-light-gray mb-[20px] md:mb-[17px] lg:mb-[18px] xl:mb-[20px] '>Start your 30-day free trial.</p>
@@ -170,10 +170,10 @@ function Signup({ control = {} }) {
                             Sign in</NavLink></p>
 
                 </div>
-                
-                <div className="hidden md:block sign-phara-hr-line sign-background-img bg-primary-violet relative rounded-[20px] md:pt-[50px] md:ps-[35px] lg:pt-[50px] lg:ps-[44px] xl:pt-[124px] xl:ps-[60px] md:h-[500px] xl:h-[784px]">
+
+                <div className="hidden md:block sign-phara-hr-line sign-background-img bg-primary-violet relative rounded-[20px] md:pt-[50px] md:ps-[35px] lg:pt-[50px] lg:ps-[44px] xl:pt-[50px] xl:ps-[60px] md:h-[500px] md:h-[550px] xl:w-[580px] xl:h-[90vh]">
                     <p
-                        className='sign-phara-vr-line md:text-[22px] lg:text-[25px] xl:text-[40px] text-primary-light'
+                        className='sign-phara-vr-line md:text-[22px] lg:text-[25px] xl:text-[34px] text-primary-light'
                     >Very good works are <br />
                         waiting for you <br />
                         Sign up Now</p>

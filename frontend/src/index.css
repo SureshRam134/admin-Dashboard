@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 
+
 :root{
   
   --color-secondary-light: #F4F5F9;
@@ -27,3 +28,5 @@
 .root{
   padding: 40px;
 }
+
+

@@ -1,16 +1,18 @@
 .log-background-img {
     background-image: url('../assets/log-sign.png');
     background-repeat: no-repeat;
-    background-position: 100% 125%;
+    background-size: 96% 83%;
+    background-position: 97% 101%;
+
 }
 
 .log-phara-hr-line::after {
-    content: " ";
+    content: "";
     position: absolute;
     border-left: 1px solid var(--color-secondary-light);
     padding: 70px 0px;
-    left: 9%;
-    top: 41%;
+    left: 10%;
+    top: 37%;
 }
 
 .log-phara-vr-line::after {
@@ -18,61 +20,63 @@
     position: absolute;
     border-bottom: 1px solid var(--color-secondary-light);
     padding: 0px 35px;
-    left: 9%;
-    bottom: 7%;
+    left: 10%;
+    bottom: 8%;
 }
 
 @media (width:768px) {
     .log-background-img {
-        background-size: 126% 73%;
+        background-size: 126% 73% !important;
         background-position: 94% 100% !important;
     }
 
     .log-phara-hr-line::after {
-        padding: 70px 0px !important;
-        left: 11%;
-        top: 38%;
+        padding: 60px 0px !important;
+        left: 10% !important;
+        top: 32% !important;
     }
 
     .log-phara-vr-line::after {
-        padding: 0px 35px;
-        left: 9%;
-        bottom: 6%;
+        padding: 0px 30px !important;
+        left: 10% !important;
+        bottom: 6% !important;
     }
 }
 
 @media (width:1024px) {
     .log-background-img {
-            background-size: 105% 84% !important;
-    background-position: 94% 105% !important;
+        background-size: 106% 85% !important;
+        background-position: 94% 105% !important;
     }
 
     .log-phara-hr-line::after {
         padding: 70px 0px !important;
-        left: 11%;
-        top: 38%;
+        left: 9% !important;
+        top: 36% !important
     }
 
     .log-phara-vr-line::after {
-        padding: 0px 35px;
-        left: 9%;
-        bottom: 7%;
+        padding: 0px 35px !important;
+        left: 9% !important;
+        bottom: 7% !important;
     }
 }
 
 @media (width:1440px) {
     .log-background-img {
-        background-position: 100% 125% !important;
+        background-size: 96% 81% !important;
+        background-position: 97% 101% !important;
     }
 
     .log-phara-hr-line::after {
-        left: 9%;
-        top: 41%;
+        padding: 70px 0px !important;
+        left: 10% !important;
+        top: 43% !important;
     }
 
     .log-phara-vr-line::after {
-        padding: 0px 35px;
-        left: 9%;
-        bottom: 7%;
+        padding: 0px 35px !important;
+        left: 10% !important;
+        bottom: 7% !important;
     }
 }
