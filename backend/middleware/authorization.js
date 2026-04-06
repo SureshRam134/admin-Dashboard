@@ -4,9 +4,7 @@ const { response } = require('../utils/response')
 
 const AdminHandleFun = async (req, res, next) => {
     try {
-        const Headers = req.headers.authorization
-        console.log(Headers, 8979);
-        
+        const Headers = req.headers.authorization      
         if (!Headers)return response(res, 401,  false,"Admin cannot login")
         const token = Headers.split("Bearer ")[1]
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
@@ -21,6 +19,8 @@ const authorizationFunction = async (req, res, next) => {
     const Headers = req.headers.authorization
     if (!Headers) return response(res, 401, false, "Token not found")
     const token = Headers.split("Bearer ")[1]
+console.log(token, "token");
+
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXP })
         req.userId = decoded.id

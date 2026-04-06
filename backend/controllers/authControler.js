@@ -41,8 +41,13 @@ const loginHandelFunction = async (req, res) => {
         // if (user.roleId !== roleId) return response(res, 400, false, "Check vaild domain")
         const vaildPassword = await bcrypt.compare(password, user.password)
         if (!vaildPassword) return response(res, 400, false, "Password invaild")
-        const token = jwt.sign({ id: user.id, role:user.roleId }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXP })
-        return response(res, 200, true, "Successfully Login", token)
+        const token = jwt.sign({ id: user.id, role:user.roleId, user_email:email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXP })
+        const tokenData = {
+                roleId: roleId,
+                token : token,
+                email: email,
+            }
+        return response(res, 200, true, "Successfully Login", tokenData)
     } catch (error) {
         if (error) response(res, 500, false, "server error :", error.message)
     }
