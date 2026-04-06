@@ -1,0 +1,10 @@
+
+
+.home-side-box::after {
+    content: "";
+    background-color: var(--color-primary-violet);
+    padding: 22px 6px;
+    position: absolute;
+    border-radius: 0px 8px 8px 0px;
+    left:-15.5%;
+}

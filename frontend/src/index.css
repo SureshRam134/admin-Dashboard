@@ -3,8 +3,8 @@
 
 
 :root{
-  
   --color-secondary-light: #F4F5F9;
+  --color-primary-violet: #6E39CB;
 }
 
 @theme {
@@ -12,8 +12,9 @@
   --color-secondary-light: #F4F5F9;
   --color-primary-dark: #000000;
   --color-primary-light-gray: #89868D;
-  --color-  : #3A3541;
+  --color-secondary-light-gray  : #3A3541;
   --color-primary-violet: #6E39CB;
+  --color-secondary-violet:#DECCFE;
   --color-secondary-gray: #DBDCDE;
   --color-primary-Err: #ff0000;
 
