@@ -4,9 +4,12 @@ const { response } = require("../utils/response")
 
 
 const getUserFunction = async (req, res) => {
-
+    console.log(req.query,678);
+    
     const page = parseInt(req.query.page || 1) 
     const limit = parseInt(req.query.limit || 10) 
+    console.log(limit,879);
+    
     const offset = (page - 1) * limit
 
     try {
