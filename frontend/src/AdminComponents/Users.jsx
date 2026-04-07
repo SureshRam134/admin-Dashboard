@@ -3,18 +3,18 @@ import axiosURL from "../api/AxiosURL";
 import { Space, Table, Button } from "antd";
 
 
-
-
-
 const Users = () => {
 
+    const [currentUsers, setCurrentUsers] = useState([])
+    const [pagination, setPagination] = useState([])
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(2)
+    
     const userData = async () => {
         try {
-            const response = await axiosURL.get(`/user/getuser?page=${page}&limit=${limit}`)
-            setUsers(response.data.result.users);
+            const response = await axiosURL.get(`/user/getuser?page=${page}&limit=${pageSize}`)
             console.log(response.data.result);
-
-
+            setCurrentUsers(response.data.result || []);
         } catch (error) {
             if (error.response.status === 401) alert(error.response.data.message)
             else if (error.response.status === 403) alert(error.response.data.message)
@@ -22,12 +22,11 @@ const Users = () => {
 
         }
     }
+    
     useEffect(() => {
         userData()
-    }, [])
-    const [users, setUsers] = useState([])
-    const [page, setPage] = useState(1)
-    const [limit, setLimit] = useState(10)
+    }, [page, pageSize])
+    
 
 
     const editHandle = () => {
@@ -43,7 +42,7 @@ const Users = () => {
         {
             title: 'S.No',
             dataIndex: 'sno',
-            render: (text, record, index) => (index + 1)
+            render: (text, record, index) => (page - 1) * pageSize + index + 1
 
         },
         {
@@ -74,26 +73,33 @@ const Users = () => {
         },
 
     ]
+
+    console.log(pagination, 2);
     return (
         <>
             <div>
-                <Table columns={columns} dataSource={users}
-                    Pagination={{
-                        current: page,
-                        pageSize: limit,
+                <Table columns={columns} dataSource={currentUsers.users || []}
+                    pagination={{
+                        current:currentUsers.currentPage,
+                        pageSize: pageSize,
+                        total: currentUsers.totalPage,
+                        showSizeChanger:true,
+                        pageSizeOptions: ['1','5', '10', '20', '50'],
+                        onChange: (page, pageSize) => {
+                            setPage(page)
+                            setPageSize(pageSize)
+                        }
                     }}
 
 
-                // currentPage: 1
-                // nextPage:0
-                // prePage:0
-                // totalPage:1
-                // totalUser:3
-                />
+
+                ></Table>
+
             </div>
         </>
     )
 }
 
 export default Users;
+
 
