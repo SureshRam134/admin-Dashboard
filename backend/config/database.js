@@ -17,7 +17,6 @@ const db = new Sequelize(
       console.log("DB Connected");
     } catch (err) {
       console.log("DB Error", err);
-      
     }
   }
 
