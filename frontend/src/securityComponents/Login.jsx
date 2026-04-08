@@ -2,8 +2,22 @@ import { useState } from 'react'
 import '../style/Login.css'
 import { NavLink } from 'react-router-dom'
 import axiosURL from '../api/AxiosURL'
+import { useContext } from "react"
+import { ContextData } from "../context/ProviedData"
 
 function Login() {
+    const { currentUser } = useContext(ContextData)
+    const navigateFunction = (data) => {
+        if(data) {
+            if(data.roleId) window.location.href='/admin/'
+
+        }else if(currentUser) {
+            window.location.href='/admin/'
+        }else{
+            // window.location.href='/userlogin'
+        }
+
+    }
 
     const initial = {
         email: "",
@@ -45,6 +59,7 @@ function Login() {
             console.log(auth_res.data.message);
             setLogUser(initial)
             setLogErr(initial)
+            navigateFunction(tokenData)
 
 
         } catch (error) {
@@ -58,6 +73,9 @@ function Login() {
     }
 
     
+    if(currentUser) {
+        return navigateFunction()
+    }
 
     return (
 

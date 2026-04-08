@@ -6,6 +6,10 @@ const SideBar = () => {
     const navigate = useNavigate()
 
     const [toggle, setToggle] = useState(false)
+    const toggleHandleFunction = () => {
+        setToggle(!toggle)
+    }
+
     const [navItem, setNavItems] = useState([
         {
             title: "Home",
@@ -85,29 +89,21 @@ const SideBar = () => {
             ]
         },
     ])
-    const [navIndex, setNavIndex] = useState(0)
+    // const [navIndex, setNavIndex] = useState(0)
     const [activeIndex, setActiveIndex] = useState(0)
     const downArrowFunction = (item, index) => {
         setActiveIndex(activeIndex === index ? null : index)
         console.log(index, "index9879");
-
-        if (index === 0) {
+        if (index < 1) {
             navigate(`${item.navs[0].link}`, { state: { title: item.navs[0].name } })
-            setNavIndex(navIndex === index ? null : index)
-        }
-        else if (index) {
+          
+        }else{
             navigate(`${item.navs[0].link}`, { state: { title: item.navs[0].name } })
-            setNavIndex(navIndex === index - 1 ? null : index - 1)
         }
     }
-
-    console.log(activeIndex, "top");
-    console.log(navIndex, "bottom");
-
-    const currentPageNavgation = (nav, index, i) => {
+    const currentPageNavgation = (nav) => {
         navigate(`${nav.link}`, { state: { title: nav.name } })
-        setNavIndex(navIndex === i ? null : i)
-
+    
     }
 
 
@@ -118,7 +114,9 @@ const SideBar = () => {
         <>
 
             <div className="w-[218px] h-[100vh] py-[50px] bg-primary-light relative">
-                <button className='absolute top-15 right-5'>
+                <button className='absolute top-15 right-5.5'
+                onClick={toggleHandleFunction}
+                >
 
                     {toggle ?
                         <svg width="14" height="14" viewBox="0 0 14 14">
@@ -172,7 +170,8 @@ const SideBar = () => {
                                             item.navs?.map((nav, i) => (
                                                 <li
                                                     className={location.pathname === nav.link ? "text-primary-violet" : "text-primary-dark"}
-                                                    key={i} onClick={() => { currentPageNavgation(nav, index, i) }}>{nav.name}</li>
+                                                    key={i} onClick={() => { currentPageNavgation(nav, i) }}>{nav.name}
+                                                </li>
                                             ))
                                         }
                                     </ul>

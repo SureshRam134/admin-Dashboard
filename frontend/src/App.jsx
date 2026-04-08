@@ -15,6 +15,7 @@ import Product from './AdminComponents/Product'
 import About from './AdminComponents/About'
 import Contact from './AdminComponents/Contact'
 import Purchase from './AdminComponents/Purchase'
+import AdminProfile from './AdminComponents/AdminProfile'
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
     <>
       <ProviedData>
         <Routes>
-          <Route path='/' element={<Login />} />
+          <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           {/* <Route path='/superadmin' element={<SuperAdminSignup/>}/> */}
           <Route path='/forgot' element={<ForgetPassword />} />
@@ -35,6 +36,7 @@ function App() {
             <Route path='about' element={<About />} />
             <Route path='contact' element={<Contact />} />
             <Route path='purchase' element={<Purchase />} />
+            <Route path='profile' element={<AdminProfile />} />
             <Route path='*' element={<AccessDenied />} />
           </Route>
 

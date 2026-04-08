@@ -1,7 +1,7 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import SideBar from "./SideBar"
 import AccessDenied from "../securityComponents/AccessDenied"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { ContextData } from "../context/ProviedData"
 import TitleBar from "./TitleBar"
 
@@ -9,8 +9,10 @@ import TitleBar from "./TitleBar"
 const Admin = ({ allowRoules }) => {
     const location = useLocation()
     const { currentUser } = useContext(ContextData)
+    const [search, setSearch] = useState('')
+    const [userPopup, setUserPopup] = useState(false)
 
-    if (!currentUser) { window.location.href = '/' }
+    if (!currentUser) { window.location.href = '/login' }
     else if (allowRoules !== 2) {
         return <AccessDenied />
     }
@@ -26,8 +28,8 @@ const Admin = ({ allowRoules }) => {
                         <SideBar />
                     </header>
                     <main className="w-full px-[30px]">
-                        <TitleBar/>
-                        <Outlet />
+                        <TitleBar search={search} setSearch={setSearch} userPopup={userPopup}  setUserPopup={setUserPopup}/>
+                        <Outlet context={{search, userPopup, setUserPopup }}/>
                     </main>
                 </div>
                 <footer>

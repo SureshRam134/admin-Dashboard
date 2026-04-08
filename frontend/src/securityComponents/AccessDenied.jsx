@@ -8,17 +8,17 @@ const AccessDenied = () => {
     const navigate = useNavigate()
     useEffect(() => {
         if(!user) {
-            setTimeout(()=> {
-                navigate('/')
+            setTimeout(()=> {        
+                navigate('/login')
             },2000)
         }
     },[user])
-   
+     
     return (
         <div>
             <p>Access denied...😬</p>
         </div>
-    )
+    )    
 }
 
 export default AccessDenied

@@ -165,7 +165,7 @@ function Signup({ control = {} }) {
                     <p
                         className='text-[12.64px] text-primary-light-gray font-lato '
                     >Already a member?
-                        <NavLink to='/'
+                        <NavLink to='/login'
                             className="text-primary-violet font-lato px-2">
                             Sign in</NavLink></p>
 
