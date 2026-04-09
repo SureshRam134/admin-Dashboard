@@ -1,18 +1,19 @@
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { ContextData } from "../context/ProviedData"
 
 
 
 const AccessDenied = () => {
-    const user = localStorage.getItem('token')
+    const { currentUser } = useContext(ContextData) 
     const navigate = useNavigate()
     useEffect(() => {
-        if(!user) {
+        if(!currentUser) {
             setTimeout(()=> {        
                 navigate('/login')
             },2000)
         }
-    },[user])
+    },[currentUser])
      
     return (
         <div>

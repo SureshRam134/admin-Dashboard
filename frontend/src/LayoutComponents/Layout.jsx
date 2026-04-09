@@ -6,19 +6,48 @@ import { ContextData } from "../context/ProviedData"
 import TitleBar from "./TitleBar"
 
 
+const User = ({allowRoules}) => {
+     const { currentUser } = useContext(ContextData)
+    if(!currentUser) {
+        return window.location.href = '/login' 
+    }
+    else if(Number(allowRoules) !== currentUser.roleId) {
+        return <AccessDenied />
+    }
+    return(
+        <>
+            <div>
+                <header>
+                    header
+                </header>
+                <main>
+                    <Outlet/>
+                </main>
+                <footer>
+                    footer
+                </footer>
+            </div>
+        </>
+    )
+}
+
 const Admin = ({ allowRoules }) => {
     const location = useLocation()
     const { currentUser } = useContext(ContextData)
     const [search, setSearch] = useState('')
     const [userPopup, setUserPopup] = useState(false)
+    const [loading, setLoading] = useState(false)
+console.log(allowRoules);
 
-    if (!currentUser) { window.location.href = '/login' }
-    else if (allowRoules !== 2) {
+    if (!currentUser) { 
+       return window.location.href = '/login' 
+    }
+    else if (Number(allowRoules) !== Number(currentUser.roleId)) { 
         return <AccessDenied />
     }
     const pageTitle = location.state?.title
     if(pageTitle === null) {
-        window.location.href='/admin/'
+      return  window.location.href='/admin/'
     }
     return (
         <>
@@ -28,8 +57,8 @@ const Admin = ({ allowRoules }) => {
                         <SideBar />
                     </header>
                     <main className="w-full px-[30px]">
-                        <TitleBar search={search} setSearch={setSearch} userPopup={userPopup}  setUserPopup={setUserPopup}/>
-                        <Outlet context={{search, userPopup, setUserPopup }}/>
+                        <TitleBar search={search} setSearch={setSearch} userPopup={userPopup}  setUserPopup={setUserPopup} loading={loading} setLoading={setLoading}/>
+                        <Outlet context={{search, userPopup, setUserPopup, loading, setLoading }}/>
                     </main>
                 </div>
                 <footer>
@@ -45,4 +74,4 @@ const Admin = ({ allowRoules }) => {
 }
 
 
-export { Admin }
+export { Admin, User }
