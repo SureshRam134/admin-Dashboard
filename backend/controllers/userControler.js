@@ -1,7 +1,7 @@
 const { Op, where } = require("sequelize");
 const User = require("../models/user")
 const { response } = require("../utils/response");
-
+const bcrypt = require('bcrypt');
 
 
 const getUserFunction = async (req, res) => {
@@ -19,9 +19,9 @@ const getUserFunction = async (req, res) => {
     }
     try {
         const getUser = await User.findAndCountAll({ where: whereCondition, limit, offset })
-        if (!getUser) return response(res, 404, false, "User Not Found")
+        if (!getUser) return response(res, 404, "User Not Found")
         const totalPage = Math.ceil(getUser.count / limit)
-        return response(res, 200, true, "SuccessFully Get", {
+        return response(res, 200, "SuccessFully Get", {
             totalUser: getUser.count,
             totalPage,
             currentPage: page,
@@ -31,40 +31,76 @@ const getUserFunction = async (req, res) => {
         })
 
     } catch (error) {
-        return response(res, 500, false, "Server Error : ", error.message)
+        return response(res, 500, "Server Error : ", error.message)
+    }
+}
+
+
+const addUserFunction = async (req, res) => {
+    const { name, email, password, roleId } = req.body;
+    try {
+        if (!name || !email || !password) return response(res, 400, "All feilds required")
+        if (!/^[a-zA-Z0-9.#+-]+@[a-zA-z.+-]+\.[a-zA-z]{2,}$/.test(email)) return response(res, 400, "Email not vaild formet")
+        if (!isNaN(email)) return response(res, 400, "Email only access")
+        if (!/(?=.*[a-z])/.test(password)) return response(res, 400, "Must have one small letter")
+        if (!/(?=.*[A-Z])/.test(password)) return response(res, 400, "Must have one capital letter")
+        if (!/(?=.*[@#$%&!*])/.test(password)) return response(res, 400, "Must have one special character")
+        if (!/(?=.*\d)/.test(password)) return response(res, 400, "Must have one number")
+        if (password.length < 8) return response(res, 400, "Must have 8 character")
+        const exist = await User.findOne({ where: { email } });
+        if (exist) return response(res, 400, "User already exists")
+        const hashpassword = await bcrypt.hash(password, 10)
+        const isEmail = email.trim().toLowerCase();
+        const newUser = await User.create({
+            roleId,
+            name,
+            email: isEmail,
+            password: hashpassword,
+        });
+
+        return response(res, 200, "SuccessFull Registered", {
+     
+            name: newUser.name,
+            email: newUser.email,
+            roleId: newUser.roleId,
+            active: newUser.active,
+        })
+    } catch (error) {
+        return response(res, 500, "server error :", error.message)
     }
 }
 
 const updateUserFunction = async (req, res) => {
     const { name, email } = req.body
-    const {id} = req.params;
-    console.log(id, 8798);
-    
-    if (!id) return response(res, 400, false, "Something wrong")
+    const { id } = req.params;
+    if (!id) return response(res, 400, "Invaild id")
     try {
-        const user = await User.update({ name: name, email: email }, { where: { id } })
-        console.log(user);
-        return response(res, 200, true, "Successfully Update")
+        const user = await User.findByPk(id)
+        if (!user) return response(res, 404, "User not found")
+        await user.update({ name: name, email: email })
+        return response(res, 200, "Successfully Update", user)
     } catch (error) {
-        return response(res, 500, false, "Server Error: ", error)
+        return response(res, 500, "Server Error: ", error.message)
     }
 
 }
 const deleteUserFunction = async (req, res) => {
-    
-    const {isActive} =req.body;
-    const {id} =req.params;
-    if(!id) return response(res, 400, false, "Something wrong")
-    const active = isActive ? 1 : 0 
+
+    const { isActive } = req.body;
+    const { id } = req.params;
+    if (!id) return response(res, 400, "Invaild id")
     try {
-        await User.update({active:active}, {where:{id}})
-        return response(res, 200, true, "User access denied", active)
+        const user = await User.findByPk(id)
+        if (!user) return response(res, 404, "User not found")
+        const newStatus = isActive ? 1 : 0
+        await user.update({ active: newStatus })
+        return response(res, 200, newStatus ? "User Deactivated" : "User Activated", newStatus)
     } catch (error) {
-        return response(res, 500, false, "Server Error: ", error)
+        return response(res, 500, "Server Error: ", error.message)
     }
 }
 
 
 
 
-module.exports = { getUserFunction, updateUserFunction, deleteUserFunction }
+module.exports = { getUserFunction, updateUserFunction, deleteUserFunction, addUserFunction }

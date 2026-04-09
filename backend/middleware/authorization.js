@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 const { response } = require('../utils/response')
 
-const AdminHandleFun = async (req, res, next) => {
+const AdminAllowFun = async (req, res, next) => {
     try {
         const Headers = req.headers.authorization      
         if (!Headers)return response(res, 401,  false,"Admin cannot login")
@@ -11,13 +11,13 @@ const AdminHandleFun = async (req, res, next) => {
         if (![2].includes(decoded.role)) return response(res,403,  false,"Access denied")
         next();
     } catch (error) {
-        return response(res, 500, false, "Serverrr error :", error)
+        return response(res, 500, "Serverrr error :", error)
     }
 }
 
 const authorizationFunction = async (req, res, next) => {
     const Headers = req.headers.authorization
-    if (!Headers) return response(res, 401, false, "Token not found")
+    if (!Headers) return response(res, 401, "Token not found")
     const token = Headers.split("Bearer ")[1]
 console.log(token, "token");
 
@@ -26,7 +26,7 @@ console.log(token, "token");
         req.userId = decoded.id
         next();
     } catch (error) {
-        return response(res, 500, false, "server error", error)
+        return response(res, 500, "server error", error)
     }
 }
 
@@ -41,8 +41,8 @@ const userVerifyOtpFun = async (req, res, next) => {
         if (new Date() > new Date(user.expires_otp)) return response(res, 400, "Opt expired")
         next();
     } catch (error) {
-        return response(res, 500, false, "server error: ", error)
+        return response(res, 500, "server error: ", error)
     }
 }
 
-module.exports = { AdminHandleFun, authorizationFunction, userVerifyOtpFun }
+module.exports = { AdminAllowFun, authorizationFunction, userVerifyOtpFun }
