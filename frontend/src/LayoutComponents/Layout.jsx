@@ -6,22 +6,23 @@ import { ContextData } from "../context/ProviedData"
 import TitleBar from "./TitleBar"
 
 
-const User = ({allowRoules}) => {
-     const { currentUser } = useContext(ContextData)
-    if(!currentUser) {
-        return window.location.href = '/login' 
+
+const User = ({ allowRoules }) => {
+    const { currentUser } = useContext(ContextData)
+    if (!currentUser) {
+        return window.location.href = '/login'
     }
-    else if(Number(allowRoules) !== Number(currentUser.roleId)) {
+    else if (Number(allowRoules) !== Number(currentUser.roleId)) {
         return <AccessDenied />
     }
-    return(
+    return (
         <>
             <div>
                 <header>
                     header
                 </header>
                 <main>
-                    <Outlet/>
+                    <Outlet />
                 </main>
                 <footer>
                     footer
@@ -31,46 +32,50 @@ const User = ({allowRoules}) => {
     )
 }
 
+
 const Admin = ({ allowRoules }) => {
     const location = useLocation()
     const { currentUser } = useContext(ContextData)
     const [search, setSearch] = useState('')
     const [userPopup, setUserPopup] = useState(false)
+
     const [loading, setLoading] = useState(false)
-console.log(allowRoules)
-    if (!currentUser) { 
-       return window.location.href = '/login' 
+    console.log(allowRoules)
+    if (!currentUser) {
+        return window.location.href = '/login'
     }
-    else if (Number(allowRoules) !== Number(currentUser.roleId)) { 
-        return <AccessDenied />
-    }
-    const pageTitle = location.state?.title
-    if(pageTitle === null) {
-      return  window.location.href='/admin/'
-    }
-    return (
-        <>
-            <div className="bg-secondary-light">
-                <div className="flex ">
-                    <header>
-                        <SideBar />
-                    </header>
-                    <main className="w-full px-[30px]">
-                        <TitleBar search={search} setSearch={setSearch} userPopup={userPopup}  setUserPopup={setUserPopup} loading={loading} setLoading={setLoading}/>
-                        <Outlet context={{search, userPopup, setUserPopup, loading, setLoading }}/>
-                    </main>
+    else if (Number(allowRoules) !== Number(currentUser.roleId)) {
+
+
+        if (!currentUser) { window.location.href = '/login' }
+        else if (allowRoules !== 2) {
+            return <AccessDenied />
+        }
+        const pageTitle = location.state?.title
+        if (pageTitle === null) {
+            window.location.href = '/admin/'
+        }
+        return (
+            <>
+                <div className="bg-secondary-light">
+                    <div className="flex ">
+                        <header>
+                            <SideBar />
+                        </header>
+                        <main className="w-full px-[30px]">
+                            <TitleBar search={search} setSearch={setSearch} userPopup={userPopup} setUserPopup={setUserPopup} />
+                            <Outlet context={{ search, userPopup, setUserPopup }} />
+                        </main>
+                    </div>
+                    <footer>
+                        footer
+                    </footer>
                 </div>
-                <footer>
-                    footer
-                </footer>
 
 
-            </div>
-
-
-        </>
-    )
+            </>
+        )
+    }
 }
 
-
-export { Admin, User }
+    export { Admin }

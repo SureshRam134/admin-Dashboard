@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { ContextData } from "../context/ProviedData"
 
 
-const TitleBar = ({ search, setSearch, userPopup, setUserPopup, loading, setLoading}) => {
+const TitleBar = ({ search, setSearch, userPopup, setUserPopup }) => {
     const { currentUser } = useContext(ContextData)
     const location = useLocation()
     const navigate = useNavigate()
@@ -14,15 +14,6 @@ const TitleBar = ({ search, setSearch, userPopup, setUserPopup, loading, setLoad
             navigate('/login')
         }
     }
-
-    const handleAddUserToggle = () => {
-        setUserPopup(true)
-        setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-        },2000)
-    }
-
 
 
     return (
@@ -56,7 +47,7 @@ const TitleBar = ({ search, setSearch, userPopup, setUserPopup, loading, setLoad
                         location.state?.title === "User" &&
                         <button
                             className=" text-[15px] bg-primary-violet text-primary-light px-[15px] py-[14px] rounded-[8px]" 
-                            onClick={handleAddUserToggle}
+                            onClick={() => {setUserPopup(!userPopup)}}
                             >+Add User
                         </button>
                     }

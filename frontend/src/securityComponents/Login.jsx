@@ -9,11 +9,12 @@ function Login() {
     const { currentUser } = useContext(ContextData)
     const navigateFunction = (data) => {
         if(data) {
-            if(data.roleId === 2) window.location.href='/admin/'
-            else if(data.roleId === 3) window.location.href='/user/'
-        }
-        else{
-            window.location.href='/login'
+            if(data.roleId) window.location.href='/admin/'
+
+        }else if(currentUser) {
+            window.location.href='/admin/'
+        }else{
+            // window.location.href='/userlogin'
         }
 
     }
@@ -48,14 +49,18 @@ function Login() {
             const data = {
                 email: logUser.email,
                 password: logUser.password,
+                roleId: 2
             }
             const res = await axiosURL.post("/user/login", data)
             alert(res.data.message)
             const tokenData = res.data.result
             localStorage.setItem("tokenProfile", JSON.stringify(tokenData))
-            navigateFunction(tokenData)
+            const auth_res = await axiosURL.post("/user/protect")
+            console.log(auth_res.data.message);
             setLogUser(initial)
             setLogErr(initial)
+            navigateFunction(tokenData)
+
 
         } catch (error) {
             if (error.response.status === 400) alert(error.response.data.message)
