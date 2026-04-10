@@ -11,7 +11,7 @@ const User = ({allowRoules}) => {
     if(!currentUser) {
         return window.location.href = '/login' 
     }
-    else if(Number(allowRoules) !== currentUser.roleId) {
+    else if(Number(allowRoules) !== Number(currentUser.roleId)) {
         return <AccessDenied />
     }
     return(
@@ -37,8 +37,7 @@ const Admin = ({ allowRoules }) => {
     const [search, setSearch] = useState('')
     const [userPopup, setUserPopup] = useState(false)
     const [loading, setLoading] = useState(false)
-console.log(allowRoules);
-
+console.log(allowRoules)
     if (!currentUser) { 
        return window.location.href = '/login' 
     }
