@@ -9,7 +9,7 @@ import TitleBar from "./TitleBar"
 
 const User = ({ allowRoules }) => {
     const { currentUser } = useContext(ContextData)
-    if (!currentUser) {
+    if (!currentUser.token || !currentUser) {
         return window.location.href = '/login'
     }
     else if (Number(allowRoules) !== Number(currentUser.roleId)) {
@@ -41,41 +41,36 @@ const Admin = ({ allowRoules }) => {
 
     const [loading, setLoading] = useState(false)
     console.log(allowRoules)
-    if (!currentUser) {
-        return window.location.href = '/login'
+
+    if (!currentUser.token || !currentUser) { window.location.href = '/login' }
+    else if (allowRoules !== Number(currentUser.roleId)) {
+        return <AccessDenied />
     }
-    else if (Number(allowRoules) !== Number(currentUser.roleId)) {
-
-
-        if (!currentUser) { window.location.href = '/login' }
-        else if (allowRoules !== 2) {
-            return <AccessDenied />
-        }
-        const pageTitle = location.state?.title
-        if (pageTitle === null) {
-            window.location.href = '/admin/'
-        }
-        return (
-            <>
-                <div className="bg-secondary-light">
-                    <div className="flex ">
-                        <header>
-                            <SideBar />
-                        </header>
-                        <main className="w-full px-[30px]">
-                            <TitleBar search={search} setSearch={setSearch} userPopup={userPopup} setUserPopup={setUserPopup} />
-                            <Outlet context={{ search, userPopup, setUserPopup }} />
-                        </main>
-                    </div>
-                    <footer>
-                        footer
-                    </footer>
+    const pageTitle = location.state?.title
+    if (pageTitle === null) {
+        window.location.href = '/admin/'
+    }
+    return (
+        <>
+            <div className="bg-secondary-light">
+                <div className="flex ">
+                    <header>
+                        <SideBar />
+                    </header>
+                    <main className="w-full px-[30px]">
+                        <TitleBar search={search} setSearch={setSearch} userPopup={userPopup} setUserPopup={setUserPopup} loading={loading} setLoading={setLoading} />
+                        <Outlet context={{ search, userPopup, setUserPopup, loading, setLoading }} />
+                    </main>
                 </div>
+                <footer>
+                    footer
+                </footer>
+            </div>
 
 
-            </>
-        )
-    }
+        </>
+    )
 }
 
-    export { Admin }
+
+export { Admin, User }

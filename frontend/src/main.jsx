@@ -3,11 +3,18 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
+import { persist, store } from './context/store.js'
+import { PersistGate } from 'redux-persist/integration/react'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <PersistGate loading={null} persist={persist}>
+
+        <App />
+
+      </PersistGate>
+
     </BrowserRouter>
   </StrictMode>,
 )

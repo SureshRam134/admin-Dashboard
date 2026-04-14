@@ -4,17 +4,19 @@ import { NavLink } from 'react-router-dom'
 import axiosURL from '../api/AxiosURL'
 import { useContext } from "react"
 import { ContextData } from "../context/ProviedData"
+import { useDispatch } from 'react-redux'
+import { setToken } from '../slices/userToken'
 
 function Login() {
+    const dispatch = useDispatch()
     const { currentUser } = useContext(ContextData)
     const navigateFunction = (data) => {
         if(data) {
-            if(data.roleId) window.location.href='/admin/'
-
-        }else if(currentUser) {
-            window.location.href='/admin/'
-        }else{
-            // window.location.href='/userlogin'
+            if(data.roleId === 2) window.location.href='/admin/'
+            else if(data.roleId === 3) window.location.href='/user/'
+        }
+        else{
+            window.location.href='/login'
         }
 
     }
@@ -53,18 +55,17 @@ function Login() {
             }
             const res = await axiosURL.post("/user/login", data)
             alert(res.data.message)
-            const tokenData = res.data.result
-            localStorage.setItem("tokenProfile", JSON.stringify(tokenData))
-            const auth_res = await axiosURL.post("/user/protect")
-            console.log(auth_res.data.message);
+            const tokenData = res.data.result        
+            dispatch(setToken(tokenData))
+            // navigateFunction(tokenData)
             setLogUser(initial)
             setLogErr(initial)
-            navigateFunction(tokenData)
 
 
         } catch (error) {
             if (error.response.status === 400) alert(error.response.data.message)
-            else console.log("Server error:", error);
+            if (error.response.status === 403) alert(error.response.data.message)
+            console.log("Server error:", error);
         }
     }
 
@@ -73,7 +74,7 @@ function Login() {
     }
 
     
-    if(currentUser) {
+    if(currentUser.tokena) {
         return navigateFunction()
     }
 

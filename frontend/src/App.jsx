@@ -18,7 +18,7 @@ import Purchase from './AdminComponents/Purchase'
 import AdminProfile from './AdminComponents/AdminProfile'
 
 function App() {
-
+  
   return (
     <>
       <ProviedData>

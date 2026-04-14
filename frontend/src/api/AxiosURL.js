@@ -1,4 +1,5 @@
 import axios from "axios"
+import { store } from "../context/store";
 
 
 const axiosURL = axios.create({
@@ -6,11 +7,13 @@ const axiosURL = axios.create({
     headers: "content-type : application/json"
 })
 axiosURL.interceptors.request.use((config) => {
-    const getToken = localStorage.getItem("tokenProfile")
-    const userToken = getToken ? JSON.parse(getToken): ''
-    
-    if(userToken) {
-        config.headers.authorization =`Bearer ${userToken.token}`
+    // const getToken = localStorage.getItem("tokenProfile")
+    // const userToken = getToken ? JSON.parse(getToken): ''
+
+    const token = store.getState().auth.token
+    console.log(token, 798799790);
+    if(token) {
+        config.headers.authorization =`Bearer ${token}`
     }
     return config;
 },

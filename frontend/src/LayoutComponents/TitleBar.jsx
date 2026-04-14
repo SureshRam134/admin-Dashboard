@@ -1,18 +1,27 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react"
 import { ContextData } from "../context/ProviedData"
+import { useDispatch } from "react-redux";
+import { logOut } from "../slices/userToken";
 
 
 const TitleBar = ({ search, setSearch, userPopup, setUserPopup }) => {
+    const dispatch = useDispatch();
     const { currentUser } = useContext(ContextData)
     const location = useLocation()
     const navigate = useNavigate()
 
     const profilehandleFun = (val) => {
-        if (val === 'logout') {
-            localStorage.setItem('tokenProfile', '')
+            dispatch(logOut(val))
             navigate('/login')
-        }
+    }
+
+    const handleAddUserToggle = () => {
+        setUserPopup(true)
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+        },2000)
     }
 
 
@@ -47,7 +56,7 @@ const TitleBar = ({ search, setSearch, userPopup, setUserPopup }) => {
                         location.state?.title === "User" &&
                         <button
                             className=" text-[15px] bg-primary-violet text-primary-light px-[15px] py-[14px] rounded-[8px]" 
-                            onClick={() => {setUserPopup(!userPopup)}}
+                            onClick={handleAddUserToggle}
                             >+Add User
                         </button>
                     }

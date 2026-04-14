@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 
 const AccessDenied = () => {
-    const user = localStorage.getItem('token')
+    const user = localStorage.getItem('tokenProfile')
     const navigate = useNavigate()
     useEffect(() => {
         if(!user) {
