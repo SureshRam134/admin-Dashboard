@@ -4,7 +4,7 @@ const { response } = require('../utils/response')
 
 const AdminAllowFun = async (req, res, next) => {
     try {
-        const Headers = req.headers.authorization      
+        const Headers = req.headers.authorization    
         if (!Headers)return response(res, 401,  false,"Admin cannot login")
         const token = Headers.split("Bearer ")[1]
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
