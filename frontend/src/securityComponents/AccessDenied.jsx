@@ -1,18 +1,19 @@
 import { useEffect } from "react"
+import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 
 
 const AccessDenied = () => {
-    const user = localStorage.getItem('tokenProfile')
+    const token = useSelector(state => state.auth.token)
     const navigate = useNavigate()
     useEffect(() => {
-        if(!user) {
+        if(!token) {
             setTimeout(()=> {        
                 navigate('/login')
             },2000)
         }
-    },[user])
+    },[token])
      
     return (
         <div>

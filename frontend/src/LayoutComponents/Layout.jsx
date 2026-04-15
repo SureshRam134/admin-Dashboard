@@ -1,18 +1,19 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import SideBar from "./SideBar"
 import AccessDenied from "../securityComponents/AccessDenied"
-import { useContext, useState } from "react"
-import { ContextData } from "../context/ProviedData"
 import TitleBar from "./TitleBar"
+import { useSelector } from "react-redux"
+import { useState } from "react"
 
 
 
 const User = ({ allowRoules }) => {
-    const { currentUser } = useContext(ContextData)
-    if (!currentUser.token || !currentUser) {
+    const  currentUser = useSelector((state) => state.auth)
+    const {roleId, token} = currentUser;
+    if (!token) {
         return window.location.href = '/login'
     }
-    else if (Number(allowRoules) !== Number(currentUser.roleId)) {
+    else if (Number(allowRoules) !== Number(roleId)) {
         return <AccessDenied />
     }
     return (
@@ -35,15 +36,16 @@ const User = ({ allowRoules }) => {
 
 const Admin = ({ allowRoules }) => {
     const location = useLocation()
-    const { currentUser } = useContext(ContextData)
+     const currentUser = useSelector((state) => state?.auth)
+    const {roleId, token} = currentUser;
     const [search, setSearch] = useState('')
     const [userPopup, setUserPopup] = useState(false)
 
     const [loading, setLoading] = useState(false)
     console.log(allowRoules)
 
-    if (!currentUser.token || !currentUser) { window.location.href = '/login' }
-    else if (allowRoules !== Number(currentUser.roleId)) {
+    if (!token) { window.location.href = '/login' }
+    else if (Number(allowRoules) !== Number(roleId)) {
         return <AccessDenied />
     }
     const pageTitle = location.state?.title

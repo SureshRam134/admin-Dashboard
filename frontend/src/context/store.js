@@ -1,8 +1,15 @@
 import {configureStore}from "@reduxjs/toolkit"
 import authToken from '../slices/userToken'
 import {persistReducer, persistStore} from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
 
+
+
+
+const storage = {
+    getItem: (key) => Promise.resolve(localStorage.getItem(key)),
+    setItem: (key, value) => Promise.resolve(localStorage.setItem(key, value)),
+    removeItem: (key) => Promise.resolve(localStorage.removeItem(key))
+}
 
 const persistConfig = {
     key :"auth",
@@ -17,5 +24,5 @@ export const store = configureStore({
     },
 })
 
-export const persist =  persistStore(store)
+export const persistor =  persistStore(store)
 

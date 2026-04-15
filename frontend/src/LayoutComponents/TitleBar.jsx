@@ -1,19 +1,22 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react"
 import { ContextData } from "../context/ProviedData"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../slices/userToken";
 
 
 const TitleBar = ({ search, setSearch, userPopup, setUserPopup }) => {
     const dispatch = useDispatch();
-    const { currentUser } = useContext(ContextData)
+    const currentUser = useSelector((state) => state.auth)
+    const {email}= currentUser
     const location = useLocation()
     const navigate = useNavigate()
 
     const profilehandleFun = (val) => {
-            dispatch(logOut(val))
-            navigate('/login')
+         if(val === "logout") {
+             dispatch(logOut())
+             navigate('/login')
+         }
     }
 
     const handleAddUserToggle = () => {
@@ -61,11 +64,11 @@ const TitleBar = ({ search, setSearch, userPopup, setUserPopup }) => {
                         </button>
                     }
                     <select name="" id=""
-                        onClick={(e) => { profilehandleFun(e.target.value) }}
+                        onChange={(e) => { profilehandleFun(e.target.value) }}
                         className="text-[15px] bg-primary-violet text-primary-light px-[15px] py-[14px] outline-none border-none rounded-[8px]"
                     >
 
-                        <option value={currentUser.email}>{currentUser.email.slice(0, 8)}</option>
+                        <option value={email}>{email.slice(0, 8)}</option>
                         <option value="logout">Log out</option>
                     </select>
 

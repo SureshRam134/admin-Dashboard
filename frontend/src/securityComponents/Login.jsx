@@ -2,20 +2,25 @@ import { useState } from 'react'
 import '../style/Login.css'
 import { NavLink } from 'react-router-dom'
 import axiosURL from '../api/AxiosURL'
-import { useContext } from "react"
-import { ContextData } from "../context/ProviedData"
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setToken } from '../slices/userToken'
 
 function Login() {
     const dispatch = useDispatch()
-    const { currentUser } = useContext(ContextData)
+    const currentUser = useSelector((state) => state.auth)
+    const {token, roleId} = currentUser;
+
+    
     const navigateFunction = (data) => {
         if(data) {
-            if(data.roleId === 2) window.location.href='/admin/'
-            else if(data.roleId === 3) window.location.href='/user/'
+            if(data.roleId === roleId) window.location.href='/admin/'
+            else if(data.roleId === roleId) window.location.href='/user/'
         }
-        else{
+        else if(token) {
+            if( roleId) window.location.href='/admin/'
+            else if(roleId) window.location.href='/user/'
+        }
+        if(!token){
             window.location.href='/login'
         }
 
@@ -57,7 +62,7 @@ function Login() {
             alert(res.data.message)
             const tokenData = res.data.result        
             dispatch(setToken(tokenData))
-            // navigateFunction(tokenData)
+            navigateFunction(tokenData)
             setLogUser(initial)
             setLogErr(initial)
 
@@ -74,7 +79,7 @@ function Login() {
     }
 
     
-    if(currentUser.tokena) {
+    if(token) {
         return navigateFunction()
     }
 

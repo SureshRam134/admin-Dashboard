@@ -13,15 +13,12 @@ const tokenSlice = createSlice({
     initialState: initial,
    
     reducers: {
-        setToken :(state, action) => {
-             return state =  action.payload 
+        setToken :(state, action) => { 
+             state.roleId = action.payload.roleId;
+             state.email = action.payload.email;
+             state.token = action.payload.token;         
         },
-
-        logOut :(state, action) => {          
-            if(action.payload === "logout")  {
-                return state = initial
-            }
-        }
+        logOut :() => state = initial 
     }
 })
 
