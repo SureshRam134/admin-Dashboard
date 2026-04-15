@@ -2,23 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 
-const initial = {
-    roleId : '',
-    email : '',
-    token : '',
-
-}
+const initial = {}
 const tokenSlice = createSlice({
     name: "auth",
     initialState: initial,
    
     reducers: {
-        setToken :(state, action) => { 
-             state.roleId = action.payload.roleId;
-             state.email = action.payload.email;
-             state.token = action.payload.token;         
-        },
-        logOut :() => state = initial 
+        setToken :(state, action) => state = action.payload,
+        logOut :(state, action) =>  state = initial 
     }
 })
 
