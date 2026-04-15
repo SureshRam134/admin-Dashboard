@@ -19,9 +19,7 @@ const Users = () => {
     }
     const [currentUsers, setCurrentUsers] = useState([])
     const [page, setPage] = useState(1)
-    const [pageSize, setPageSize] = useState(10)
-    const [addUser, setAddUser] = useState(initial)
-    const [addUserErr, setAddUserErr] = useState(initial)
+    const [pageSize, setPageSize] = useState(7)
     const [edit, setEdit] = useState(null)
 
     const handleCancelPopup = async () => {
@@ -73,9 +71,7 @@ const Users = () => {
             else console.log("Server error: ", error);
         }
     }
-    // const closePopupFunction = () => {
-    //     setUserPopup(!userPopup)
-    // }
+
 
     const userData = async () => {
         try {

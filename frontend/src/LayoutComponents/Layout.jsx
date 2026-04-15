@@ -8,7 +8,7 @@ import { useState } from "react"
 
 
 const User = ({ allowRoules }) => {
-    const  currentUser = useSelector((state) => state.auth)
+    const  currentUser = useSelector((state) => state?.auth)
     const {roleId, token} = currentUser;
     if (!token) {
         return window.location.href = '/login'
@@ -25,9 +25,9 @@ const User = ({ allowRoules }) => {
                 <main>
                     <Outlet />
                 </main>
-                <footer>
+                {/* <footer>
                     footer
-                </footer>
+                </footer> */}
             </div>
         </>
     )
@@ -40,9 +40,7 @@ const Admin = ({ allowRoules }) => {
     const {roleId, token} = currentUser;
     const [search, setSearch] = useState('')
     const [userPopup, setUserPopup] = useState(false)
-
     const [loading, setLoading] = useState(false)
-    console.log(allowRoules)
 
     if (!token) { window.location.href = '/login' }
     else if (Number(allowRoules) !== Number(roleId)) {
@@ -64,9 +62,9 @@ const Admin = ({ allowRoules }) => {
                         <Outlet context={{ search, userPopup, setUserPopup, loading, setLoading }} />
                     </main>
                 </div>
-                <footer>
+                {/* <footer>
                     footer
-                </footer>
+                </footer> */}
             </div>
 
 

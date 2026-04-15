@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../slices/userToken";
 
 
-const TitleBar = ({ search, setSearch, userPopup, setUserPopup }) => {
+const TitleBar = ({ search, setSearch, userPopup, setUserPopup, loading ,setLoading }) => {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.auth)
     const {email}= currentUser

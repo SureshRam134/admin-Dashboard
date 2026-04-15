@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 
 
 const AccessDenied = () => {
-    const token = useSelector(state => state.auth.token)
+    const token = useSelector(state => state.auth?.token)    
     const navigate = useNavigate()
     useEffect(() => {
         if(!token) {
